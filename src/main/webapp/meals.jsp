@@ -45,6 +45,7 @@
     </style>
 </head>
 <body>
+<h2><a href="index.html">Home</a></h2>
 <table>
     <tr>
         <th>Date&Time</th>
