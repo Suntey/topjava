@@ -28,23 +28,16 @@
         }
         td {
             border-bottom: 1px solid #ccc;
-            color: #669;
             padding: 9px 8px;
             transition: .3s linear
         }
         .greentxt
         {
-            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
             color: green;
-            padding: 9px 8px;
-            transition: .3s linear
         }
         .redtxt
         {
-            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
             color: red;
-            padding: 9px 8px;
-            transition: .3s linear
         }
         tr:hover td{
             color: black;
@@ -74,10 +67,10 @@
                     <c:set var="selector" value="greentxt" />
                 </c:otherwise>
             </c:choose>
-            <tr>
-                <td  align="left" class="${selector}"> ${meal.dateTime.toString().toString().replace("T"," ")}</td>
-                <td align="left" class="${selector}"> ${meal.description}</td>
-                <td align="left" class="${selector}"> ${meal.calories}</td>
+            <tr class="${selector}">
+                <td align="left"> ${meal.dateTime.toString().replace("T"," ")}</td>
+                <td align="left"> ${meal.description}</td>
+                <td align="left"> ${meal.calories}</td>
             </tr>
         </c:forEach>
     </c:if>
