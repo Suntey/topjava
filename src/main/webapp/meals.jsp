@@ -32,8 +32,22 @@
             padding: 9px 8px;
             transition: .3s linear
         }
+        .greentxt
+        {
+            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+            color: green;
+            padding: 9px 8px;
+            transition: .3s linear
+        }
+        .redtxt
+        {
+            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+            color: red;
+            padding: 9px 8px;
+            transition: .3s linear
+        }
         tr:hover td{
-            color: #6699ff;
+            color: black;
         }
     </style>
 </head>
@@ -48,11 +62,22 @@
 
     <jsp:useBean id="mealList" scope="request" type="java.util.List<ru.javawebinar.topjava.model.MealWithExceed>"/>
     <c:if test="${!empty mealList}">
-           <c:forEach var="meal" items = "${mealList}">
+        <c:set var = "selector" value=""/>
+
+        <c:forEach var="meal" items = "${mealList}">
+
+            <c:choose>
+                <c:when test="${meal.exceed}">
+                    <c:set var="selector" value="redtxt" />
+                </c:when>
+                <c:otherwise>
+                    <c:set var="selector" value="greentxt" />
+                </c:otherwise>
+            </c:choose>
             <tr>
-                <td align="left"> ${meal.dateTime.toString().toString().replace("T"," ")}</td>
-                <td align="left"> ${meal.description}</td>
-                <td align="left">${meal.calories}</td>
+                <td  align="left" class="${selector}"> ${meal.dateTime.toString().toString().replace("T"," ")}</td>
+                <td align="left" class="${selector}"> ${meal.description}</td>
+                <td align="left" class="${selector}"> ${meal.calories}</td>
             </tr>
         </c:forEach>
     </c:if>
