@@ -21,7 +21,7 @@ public class MealService {
             new Meal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500),
             new Meal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510));
 
-    public static List<MealWithExceed> mealsList() {
+    public static List<MealWithExceed> getList() {
         return MealsUtil.getFilteredWithExceeded(meals, null,null,2000);
     }
 }

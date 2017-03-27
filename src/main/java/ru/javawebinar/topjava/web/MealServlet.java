@@ -2,7 +2,6 @@ package ru.javawebinar.topjava.web;
 
 import ru.javawebinar.topjava.model.MealWithExceed;
 import ru.javawebinar.topjava.service.MealService;
-import ru.javawebinar.topjava.util.MealsUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 public class MealServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<MealWithExceed> mealWithExceeds = MealService.mealsList();
+        List<MealWithExceed> mealWithExceeds = MealService.getList();
         request.setAttribute("mealList", mealWithExceeds);
         request.getRequestDispatcher("/meals.jsp").forward(request, response);
     }

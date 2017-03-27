@@ -56,19 +56,8 @@
 
     <jsp:useBean id="mealList" scope="request" type="java.util.List<ru.javawebinar.topjava.model.MealWithExceed>"/>
     <c:if test="${!empty mealList}">
-        <c:set var = "selector" value=""/>
-
         <c:forEach var="meal" items = "${mealList}">
-
-            <c:choose>
-                <c:when test="${meal.exceed}">
-                    <c:set var="selector" value="redtxt" />
-                </c:when>
-                <c:otherwise>
-                    <c:set var="selector" value="greentxt" />
-                </c:otherwise>
-            </c:choose>
-            <tr class="${selector}">
+            <tr class="${meal.exceed? "redtxt":"greentxt"}">
                 <td align="left"> ${meal.dateTime.toString().replace("T"," ")}</td>
                 <td align="left"> ${meal.description}</td>
                 <td align="left"> ${meal.calories}</td>
