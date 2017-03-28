@@ -12,28 +12,21 @@
     <title>Add&Edit</title>
     <style type="text/css">
         table {
-            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-            font-size: 14px;
-            background: white;
-            max-width: 70%;
-            width: 70%;
             border-collapse: collapse;
             text-align: left;
+        }
+        input.txt {
+            color: black;
+            background-color: lightgoldenrodyellow;
+            border: 1px inset #00008B;
+            width: 200px;
         }
         th {
             font-weight: normal;
             color: #039;
-            border-bottom: 2px solid #6678b1;
             padding: 10px 8px;
         }
-        td {
-            border-bottom: 1px solid #ccc;
-            padding: 9px 8px;
-            transition: .3s linear
-        }
-        tr:hover td{
-            color: black;
-        }
+
     </style>
 </head>
 <body>
@@ -42,27 +35,21 @@
     <input type="hidden" name="id" value="${meal.id}">
     <table>
         <tr>
+            <th>Дата и время</th>
             <td>
-                <i>Дата и время</i>
-            </td>
-            <td>
-                <input type="datetime-local" name="date" value="<c:out value="${meal.dateTime}"/>"/>
+                <input class="txt" type="datetime-local" name="date" value="<c:out value="${meal.dateTime}"/>"/>
             </td>
         </tr>
         <tr>
+            <th>Описание</th>
             <td>
-                <i>Описание</i>
-            </td>
-            <td>
-                <input type="text" name="description" value="<c:out value="${meal.description}"/>"/>
+                <input class="txt" type="text" name="description" value="<c:out value="${meal.description}"/>"/>
             </td>
         </tr>
         <tr>
+            <th>Калории</th>
             <td>
-                <i>Калории</i>
-            </td>
-            <td>
-                <input type="text" name="calories" value="<c:out value="${meal.calories}"/>"/>
+                <input class="txt" type="text" name="calories" value="<c:out value="${meal.calories}"/>"/>
             </td>
         </tr>
         <tr>
