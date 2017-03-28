@@ -48,7 +48,6 @@
 <h2><a href="index.html">Home</a></h2>
 <table>
     <tr>
-        <th>ID</th>
         <th>Date&Time</th>
         <th>Description</th>
         <th>Calories</th>
@@ -59,7 +58,6 @@
     <c:if test="${!empty mealList}">
         <c:forEach var="meal" items = "${mealList}">
             <tr class="${meal.exceed? "redtxt":"greentxt"}">
-                <td align="left"> ${meal.id}</td>
                 <td align="left"> ${meal.dateTime.toString().replace("T"," ")}</td>
                 <td align="left"> ${meal.description}</td>
                 <td align="left"> ${meal.calories}</td>

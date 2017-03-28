@@ -52,7 +52,6 @@ public class MealServlet extends HttpServlet {
             request.setAttribute("meal", meal);
             request.getRequestDispatcher(forward).forward(request, response);
         }
-
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -68,10 +67,6 @@ public class MealServlet extends HttpServlet {
             meal.setId(id);
             mealService.update(meal);
         }
-
-        List<MealWithExceed> mealWithExceeds = MealsUtil.getFilteredWithExceeded(mealService.listMeals(), null, null, 2000);
-
-        req.setAttribute("mealList", mealWithExceeds);
-        req.getRequestDispatcher("/meals.jsp").forward(req, resp);
+        resp.sendRedirect("meals");
     }
 }
