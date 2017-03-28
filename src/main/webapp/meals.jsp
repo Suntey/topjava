@@ -48,23 +48,28 @@
 <h2><a href="index.html">Home</a></h2>
 <table>
     <tr>
+        <th>ID</th>
         <th>Date&Time</th>
         <th>Description</th>
         <th>Calories</th>
-        <%--<th colspan = "2">Delete/Edit</th>--%>
+        <th colspan = "2" align="center">Delete/Edit</th>
     </tr>
 
     <jsp:useBean id="mealList" scope="request" type="java.util.List<ru.javawebinar.topjava.model.MealWithExceed>"/>
     <c:if test="${!empty mealList}">
         <c:forEach var="meal" items = "${mealList}">
             <tr class="${meal.exceed? "redtxt":"greentxt"}">
+                <td align="left"> ${meal.id}</td>
                 <td align="left"> ${meal.dateTime.toString().replace("T"," ")}</td>
                 <td align="left"> ${meal.description}</td>
                 <td align="left"> ${meal.calories}</td>
+                <td> <a href="meals?action=delete&mealID=<c:out value="${meal.id}"/>">Delete</a> </td>
+                <td> <a href="meals?action=edit&mealID=<c:out value="${meal.id}"/>">Edit</a> </td>
             </tr>
         </c:forEach>
     </c:if>
 
 </table>
+<p><a href="meals?action=add">Add User</a></p>
 </body>
 </html>
