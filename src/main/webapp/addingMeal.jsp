@@ -49,7 +49,7 @@
         <tr>
             <th>Калории</th>
             <td>
-                <input class="txt" type="text" name="calories" value="<c:out value="${meal.calories}"/>"/>
+                <input class="txt" type="number" name="calories" value="<c:out value="${meal.calories}"/>"/>
             </td>
         </tr>
         <tr>
