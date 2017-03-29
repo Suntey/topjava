@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web;
 
+import ru.javawebinar.topjava.dao.MealDao;
 import ru.javawebinar.topjava.dao.MealDaoMemoryImpl;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealWithExceed;
@@ -21,7 +22,7 @@ import java.util.List;
 public class MealServlet extends HttpServlet {
 
 
-    private MealService mealService = new MealServiceImpl(new MealDaoMemoryImpl());
+    private MealDao mealService = new MealDaoMemoryImpl();
     private static String LIST_VIEW = "meals.jsp";
     private static String ADD_EDIT = "/addingMeal.jsp";
 

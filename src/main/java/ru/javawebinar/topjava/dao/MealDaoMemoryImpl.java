@@ -25,12 +25,12 @@ public class MealDaoMemoryImpl implements MealDao {
 
     @Override
     public void delete(int id) {
-        Meal meal = getMealById(id);
+        Meal meal = getById(id);
         if (meal!=null){ dataBase.concurrentMap.remove(id, meal);}
     }
 
     @Override
-    public Meal getMealById(int id) {
+    public Meal getById(int id) {
         return dataBase.concurrentMap.get(id);
     }
 
