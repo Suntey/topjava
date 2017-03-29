@@ -17,7 +17,7 @@ public interface MealDao {
 
     Meal getById(int id);
 
-    List<Meal> listMeals();
+    List<Meal> list();
 
 }
 

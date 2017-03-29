@@ -4,10 +4,7 @@ import ru.javawebinar.topjava.dao.MealDao;
 import ru.javawebinar.topjava.dao.MealDaoMemoryImpl;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealWithExceed;
-import ru.javawebinar.topjava.service.MealService;
-import ru.javawebinar.topjava.service.MealServiceImpl;
 import ru.javawebinar.topjava.util.MealsUtil;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +28,7 @@ public class MealServlet extends HttpServlet {
         String forward=LIST_VIEW;
         List<MealWithExceed> mealWithExceeds;
         if (action == null){
-            mealWithExceeds = MealsUtil.getFilteredWithExceeded(mealService.listMeals(), null, null, 2000);
+            mealWithExceeds = MealsUtil.getFilteredWithExceeded(mealService.list(), null, null, 2000);
             request.setAttribute("mealList", mealWithExceeds);
             request.getRequestDispatcher(forward).forward(request, response);
         }

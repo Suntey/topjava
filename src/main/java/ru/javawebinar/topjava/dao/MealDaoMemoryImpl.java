@@ -35,7 +35,7 @@ public class MealDaoMemoryImpl implements MealDao {
     }
 
     @Override
-    public List<Meal> listMeals() {
+    public List<Meal> list() {
         return new ArrayList<>(dataBase.concurrentMap.values());
     }
 }
