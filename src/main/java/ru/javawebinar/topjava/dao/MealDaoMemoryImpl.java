@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.dao;
 
 import ru.javawebinar.topjava.model.Meal;
+
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -13,13 +14,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by Suntey on 27.03.2017.
  */
 public class MealDaoMemoryImpl implements MealDao {
-    private ConcurrentMap<Integer, Meal> concurrentMap = new ConcurrentHashMap<>();
+    public static ConcurrentMap<Integer, Meal> concurrentMap = new ConcurrentHashMap<>();
     private final static AtomicInteger id = new AtomicInteger(1);
-    public static int generateID(){
+    private static int generateID(){
         return id.getAndIncrement();
     }
 
-    private MealDaoMemoryImpl() {
+    static{
         Meal meal = new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500);
         meal.setId(generateID());
         concurrentMap.put(meal.getId(),meal);
@@ -45,12 +46,12 @@ public class MealDaoMemoryImpl implements MealDao {
         concurrentMap.put(meal.getId(),meal);
     }
 
-    private static class ThreadsafeSingletonHelper{
-        private static final MealDaoMemoryImpl INSTANCE = new MealDaoMemoryImpl();
-    }
-    public static MealDaoMemoryImpl getInstance(){
-        return MealDaoMemoryImpl.ThreadsafeSingletonHelper.INSTANCE;
-    }
+//    private static class ThreadsafeSingletonHelper{
+//        private static final MealDaoMemoryImpl INSTANCE = new MealDaoMemoryImpl();
+//    }
+//    public static MealDaoMemoryImpl getInstance(){
+//        return MealDaoMemoryImpl.ThreadsafeSingletonHelper.INSTANCE;
+//    }
 
     @Override
     public void create(Meal meal) {
