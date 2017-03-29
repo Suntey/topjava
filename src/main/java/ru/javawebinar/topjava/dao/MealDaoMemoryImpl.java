@@ -19,8 +19,7 @@ public class MealDaoMemoryImpl implements MealDao {
     private static int generateID(){
         return id.getAndIncrement();
     }
-
-    static{
+    public MealDaoMemoryImpl(){
         Meal meal = new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500);
         meal.setId(generateID());
         concurrentMap.put(meal.getId(),meal);
@@ -45,13 +44,6 @@ public class MealDaoMemoryImpl implements MealDao {
         meal.setId(generateID());
         concurrentMap.put(meal.getId(),meal);
     }
-
-//    private static class ThreadsafeSingletonHelper{
-//        private static final MealDaoMemoryImpl INSTANCE = new MealDaoMemoryImpl();
-//    }
-//    public static MealDaoMemoryImpl getInstance(){
-//        return MealDaoMemoryImpl.ThreadsafeSingletonHelper.INSTANCE;
-//    }
 
     @Override
     public void create(Meal meal) {
