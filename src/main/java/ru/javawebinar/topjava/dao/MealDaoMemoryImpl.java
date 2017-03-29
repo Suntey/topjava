@@ -15,7 +15,7 @@ public class MealDaoMemoryImpl implements MealDao {
     public void create(Meal meal) {
         int id = dataBase.generateID();
         meal.setId(id);
-        dataBase .concurrentMap.put(id, meal);
+        dataBase.concurrentMap.put(id, meal);
     }
 
     @Override
@@ -36,7 +36,6 @@ public class MealDaoMemoryImpl implements MealDao {
 
     @Override
     public List<Meal> listMeals() {
-        List<Meal> meals = new ArrayList<>(dataBase.concurrentMap.values());
-        return meals;
+        return new ArrayList<>(dataBase.concurrentMap.values());
     }
 }

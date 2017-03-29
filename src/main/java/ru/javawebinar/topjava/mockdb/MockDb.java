@@ -13,9 +13,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by Suntey on 27.03.2017.
  */
 public class MockDb {
-    public static ConcurrentMap<Integer, Meal> concurrentMap = new ConcurrentHashMap<>();
+    public ConcurrentMap<Integer, Meal> concurrentMap = new ConcurrentHashMap<>();
     private final static AtomicInteger id = new AtomicInteger(1);
-    static {
+    public static int generateID(){
+        return id.getAndIncrement();
+    }
+
+    private MockDb() {
         Meal meal = new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500);
         meal.setId(generateID());
         concurrentMap.put(meal.getId(),meal);
@@ -40,12 +44,6 @@ public class MockDb {
         meal.setId(generateID());
         concurrentMap.put(meal.getId(),meal);
     }
-
-    public static int generateID(){
-        return id.getAndIncrement();
-    }
-
-    private MockDb() {}
 
     private static class ThreadsafeSingletonHelper{
         private static final MockDb INSTANCE = new MockDb();
