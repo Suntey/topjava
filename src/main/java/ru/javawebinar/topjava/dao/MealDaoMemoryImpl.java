@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by Suntey on 27.03.2017.
  */
 public class MealDaoMemoryImpl implements MealDao {
-    public static ConcurrentMap<Integer, Meal> concurrentMap = new ConcurrentHashMap<>();
+    public static final ConcurrentMap<Integer, Meal> concurrentMap = new ConcurrentHashMap<>();
     private final static AtomicInteger id = new AtomicInteger(1);
     private static int generateID(){
         return id.getAndIncrement();
