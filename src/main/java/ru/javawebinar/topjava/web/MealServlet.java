@@ -19,7 +19,7 @@ import java.util.List;
 public class MealServlet extends HttpServlet {
 
 
-    private MealDao mealService = new MealDaoMemoryImpl();
+    private MealDao mealService = MealDaoMemoryImpl.getInstance();
     private static String LIST_VIEW = "meals.jsp";
     private static String ADD_EDIT = "/addingMeal.jsp";
 
