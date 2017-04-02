@@ -24,19 +24,19 @@
 <section>
     <h2><a href="index.html">Home</a></h2>
     <h2>My food</h2>
-    <form method="get">
+    <form method="post" action="meals?action=filter">
         <table id="filters">
             <tr>
                 <th>От даты</th>
-                <td> <input type="date" name="startDate"></td>
+                <td> <input type="date" name="startDate" value="${startDate}"></td>
                 <th>От времени</th>
-                <td> <input type="time" name="startTime"></td>
+                <td> <input type="time" name="startTime" value="${startTime}"></td>
             </tr>
             <tr>
                 <th>До даты</th>
-                <td> <input type="date" name="endDate"></td>
+                <td> <input type="date" name="endDate" value="${endDate}"></td>
                 <th>До времени</th>
-                <td> <input type="time" name="endTime"></td>
+                <td> <input type="time" name="endTime" value="${endTime}"></td>
             </tr>
             <tr>
                 <td align="right"><button type="submit">Accept</button></td>

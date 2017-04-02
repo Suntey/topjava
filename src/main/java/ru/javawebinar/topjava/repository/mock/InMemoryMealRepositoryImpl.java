@@ -8,6 +8,7 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -40,14 +41,18 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
 
     @Override // null if not found
-    public Meal get(int userId, int id) {
+    public synchronized Meal get(int userId, int id) {
         return repository.get(userId, id);
     }
 
     @Override
-    public List<Meal> getAll(int userId) {
+    public synchronized List<Meal> getAll(int userId) {
+        return MealsUtil.getSortedByDateAndTime(repository.row(userId).values());
+    }
 
-        return MealsUtil.getSortedByDateAndTime(repository.row(Integer.valueOf(userId)).values());
+    @Override
+    public synchronized List<Meal> getFilteredByDate(int userId, LocalDate startDate, LocalDate endDate) {
+        return MealsUtil.getFilteredByDate(repository.row(userId).values(), startDate, endDate);
     }
 }
 

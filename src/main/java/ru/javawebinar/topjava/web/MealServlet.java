@@ -42,6 +42,13 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+
+        if ("filter".equals(request.getParameter("action"))){
+            LOG.info("Get Filtered List");
+            request.setAttribute("meals", controller.getFilteredByDateAndTime(request));
+            request.getRequestDispatcher("/meals.jsp").forward(request, response);
+        }
+        else {
         String id = request.getParameter("id");
 
         Meal meal = new Meal(id.isEmpty() ? null : Integer.valueOf(id),
@@ -51,13 +58,13 @@ public class MealServlet extends HttpServlet {
 
         LOG.info(meal.isNew() ? "Create {}" : "Update {}", meal);
         controller.save(AuthorizedUser.id(), meal);
-        response.sendRedirect("meals");
+        response.sendRedirect("meals");}
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-
+        System.out.println(action);
         switch (action == null ? "all" : action) {
             case "delete":
                 int id = getId(request);
@@ -73,12 +80,14 @@ public class MealServlet extends HttpServlet {
                 request.setAttribute("meal", meal);
                 request.getRequestDispatcher("/meal.jsp").forward(request, response);
                 break;
+//            case "filter":
+//                LOG.info("Get Filtered List");
+//                request.setAttribute("meals", controller.getFilteredByDateAndTime(request));
+//                request.getRequestDispatcher("/meals.jsp").forward(request, response);
             case "all":
             default:
                 LOG.info("getAll");
-                request.setAttribute("meals", controller.getFilteredByDateAndTime(AuthorizedUser.id(), request.getParameter("startDate"),
-                        request.getParameter("endDate"), request.getParameter("startTime"),
-                       request.getParameter("endTime"), AuthorizedUser.getCaloriesPerDay()));
+                request.setAttribute("meals", controller.getAllWithExceed());
                 request.getRequestDispatcher("/meals.jsp").forward(request, response);
                 break;
         }
