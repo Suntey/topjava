@@ -1,48 +1,53 @@
 package ru.javawebinar.topjava.repository.mock;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+import org.springframework.stereotype.Repository;
+import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * GKislin
  * 15.09.2015.
  */
+@Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
-    private Map<Integer, Meal> repository = new ConcurrentHashMap<>();
+    public final Table<Integer, Integer, Meal> repository = HashBasedTable.create();
     private AtomicInteger counter = new AtomicInteger(0);
 
     {
-        MealsUtil.MEALS.forEach(this::save);
+        MealsUtil.MEALS.forEach(meal->this.save(AuthorizedUser.id(), meal));
     }
 
     @Override
-    public Meal save(Meal meal) {
+    public synchronized Meal save(int userId, Meal meal) {
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
         }
-        repository.put(meal.getId(), meal);
+        repository.put(userId, meal.getId(), meal);
         return meal;
     }
 
-    @Override
-    public void delete(int id) {
-        repository.remove(id);
+    @Override // false if not found
+    public synchronized boolean delete(int userId, int id) {
+     return repository.remove(userId, id) != null;
+    }
+
+
+    @Override // null if not found
+    public Meal get(int userId, int id) {
+        return repository.get(userId, id);
     }
 
     @Override
-    public Meal get(int id) {
-        return repository.get(id);
-    }
+    public List<Meal> getAll(int userId) {
 
-    @Override
-    public Collection<Meal> getAll() {
-        return repository.values();
+        return MealsUtil.getSortedByDateAndTime(repository.row(Integer.valueOf(userId)).values());
     }
 }
 
