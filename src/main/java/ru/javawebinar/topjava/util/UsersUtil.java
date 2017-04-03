@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.util;
 
-import ru.javawebinar.topjava.model.NamedEntity;
 import ru.javawebinar.topjava.model.User;
 
 import java.util.Collection;

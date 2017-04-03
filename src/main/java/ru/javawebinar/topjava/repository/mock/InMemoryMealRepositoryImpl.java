@@ -3,13 +3,10 @@ package ru.javawebinar.topjava.repository.mock;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import org.springframework.stereotype.Repository;
-import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
-
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
