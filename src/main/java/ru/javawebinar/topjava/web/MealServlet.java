@@ -27,14 +27,14 @@ import java.util.Objects;
  */
 public class MealServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(MealServlet.class);
-
+    private ClassPathXmlApplicationContext context;
     private MealRestController controller;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 //        controller = new InMemoryMealRepositoryImpl();
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        context = new ClassPathXmlApplicationContext("spring/spring-app.xml");
         controller = context.getBean(MealRestController.class);
 
     }
@@ -48,7 +48,7 @@ public class MealServlet extends HttpServlet {
             request.setAttribute("meals", controller.getFilteredByDateAndTime(request));
             request.getRequestDispatcher("/meals.jsp").forward(request, response);
         }
-        else {
+
         String id = request.getParameter("id");
 
         Meal meal = new Meal(id.isEmpty() ? null : Integer.valueOf(id),
@@ -58,12 +58,11 @@ public class MealServlet extends HttpServlet {
 
         LOG.info(meal.isNew() ? "Create {}" : "Update {}", meal);
         controller.save(AuthorizedUser.id(), meal);
-        response.sendRedirect("meals");}
+        response.sendRedirect("meals");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(AuthorizedUser.id());
         String action = request.getParameter("action");
         switch (action == null ? "all" : action) {
             case "delete":
@@ -80,10 +79,6 @@ public class MealServlet extends HttpServlet {
                 request.setAttribute("meal", meal);
                 request.getRequestDispatcher("/meal.jsp").forward(request, response);
                 break;
-//            case "filter":
-//                LOG.info("Get Filtered List");
-//                request.setAttribute("meals", controller.getFilteredByDateAndTime(request));
-//                request.getRequestDispatcher("/meals.jsp").forward(request, response);
             case "all":
             default:
                 LOG.info("getAll");
@@ -96,5 +91,12 @@ public class MealServlet extends HttpServlet {
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Integer.valueOf(paramId);
+    }
+
+    @Override
+    public void destroy() {
+        LOG.info("destroy");
+        super.destroy();
+        context.close();
     }
 }

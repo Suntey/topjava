@@ -47,7 +47,7 @@ public class MealRestController {
         LOG.info("get all without parametrs");
         return MealsUtil.getWithExceeded(getAll(), AuthorizedUser.getCaloriesPerDay());
     }
-    public List<MealWithExceed> getFilteredByDateAndTime(HttpServletRequest request){
+    public synchronized List<MealWithExceed> getFilteredByDateAndTime(HttpServletRequest request){
         LOG.info("getAllFiltered");
         String startD = request.getParameter("startDate");
         String endD = request.getParameter("endDate");
