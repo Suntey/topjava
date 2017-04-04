@@ -38,10 +38,7 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     @Override
     public User get(int id) {
         LOG.info("get " + id);
-        if (userList.containsKey(id)){
             return userList.get(id);
-        }
-        return null;
     }
 
     @Override

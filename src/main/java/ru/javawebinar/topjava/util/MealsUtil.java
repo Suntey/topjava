@@ -40,7 +40,7 @@ public class MealsUtil {
         return result.isEmpty()?Collections.emptyList():result;
 }
     public static List<Meal> getSortedByDateAndTime(Collection<Meal> meals){
-        List<Meal> result = meals.stream().sorted(Comparator.comparing(Meal::getDate).thenComparing(Comparator.comparing(Meal::getTime)).reversed())
+        List<Meal> result = meals.stream().sorted(Comparator.comparing(Meal::getDateTime).reversed())
                 .collect(Collectors.toList());
         return result.isEmpty()? Collections.emptyList():result;
     }

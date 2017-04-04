@@ -16,6 +16,6 @@ public class UsersUtil {
     }
 
     public static User findUserByEmail(Collection<User> users, String email){
-        return users.stream().filter(user -> user.getEmail() == email).findFirst().orElse(null);
+        return users.stream().filter(user -> user.getEmail().equals(email)).findFirst().orElse(null);
     }
 }
