@@ -5,12 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
-import ru.javawebinar.topjava.util.UsersUtil;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryUserRepositoryImpl implements UserRepository {
@@ -44,12 +45,15 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getAll() {
         LOG.info("getAll");
-        return UsersUtil.getSortedByName(userList.values());
+        return userList.values().stream().
+                sorted(Comparator.comparing(User::getName).
+                        thenComparing(Comparator.comparing(User::getEmail))).
+                collect(Collectors.toList());
     }
 
     @Override
     public User getByEmail(String email) {
         LOG.info("getByEmail " + email);
-        return UsersUtil.findUserByEmail(userList.values(), email);
+        return userList.values().stream().filter(user -> user.getEmail().equals(email)).findFirst().orElse(null);
     }
 }

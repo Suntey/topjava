@@ -23,19 +23,19 @@ public class MealRestController {
     private MealService service;
 
 
-    public Meal save(int userId, Meal meal){
+    public Meal save(Meal meal) {
         LOG.info("safe "+meal);
-        return service.save(userId, meal);
+        return service.save(AuthorizedUser.id(), meal);
     }
 
-    public void delete(int userId, int id){
+    public void delete(int id){
         LOG.info("delete "+id);
-        service.delete(userId, id);
+        service.delete(AuthorizedUser.id(), id);
     }
 
-    public Meal get(int userId, int id){
+    public Meal get(int id){
         LOG.info("get "+id);
-        return service.get(userId, id);
+        return service.get(AuthorizedUser.id(), id);
     }
 
     private List<Meal> getAll(){

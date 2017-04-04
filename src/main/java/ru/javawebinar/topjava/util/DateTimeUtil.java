@@ -1,8 +1,6 @@
 package ru.javawebinar.topjava.util;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -14,10 +12,7 @@ public class DateTimeUtil {
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public static boolean isBetweenTime(LocalTime lt, LocalTime startTime, LocalTime endTime) {
-        return lt.compareTo(startTime) >= 0 && lt.compareTo(endTime) <= 0;
-    }
-    public static boolean isBetweenDate(LocalDate localDate, LocalDate startDate, LocalDate endDate){
+    public static <T extends Comparable> boolean isBetweenDateTime(T localDate, T startDate, T endDate){
         return localDate.compareTo(startDate) >= 0 && localDate.compareTo(endDate) <= 0;
     }
     public static String toString(LocalDateTime ldt) {

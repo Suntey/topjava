@@ -7,7 +7,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -31,26 +34,10 @@ public class MealsUtil {
         mealsWithExceeded.forEach(System.out::println);
 
     }
-
-// ----------------------------Meal-----------------------------
-    public static List<Meal> getFilteredByDate(Collection<Meal> meals, LocalDate startDate, LocalDate endDate){
-        List<Meal> result = getSortedByDateAndTime(meals.stream()
-                .filter(meal -> DateTimeUtil.isBetweenDate(meal.getDate(), startDate, endDate))
-                .collect(Collectors.toList()));
-        return result.isEmpty()?Collections.emptyList():result;
-}
-    public static List<Meal> getSortedByDateAndTime(Collection<Meal> meals){
-        List<Meal> result = meals.stream().sorted(Comparator.comparing(Meal::getDateTime).reversed())
-                .collect(Collectors.toList());
-        return result.isEmpty()? Collections.emptyList():result;
-    }
-
-
 //    ------------------------MealWithExceed---------------------
 
     public static List<MealWithExceed> getWithExceeded(Collection<Meal> meals, int caloriesPerDay) {
-        List<MealWithExceed> result = getFilteredByTime(meals, LocalTime.MIN, LocalTime.MAX, caloriesPerDay);
-        return result.isEmpty()? Collections.emptyList():result;
+        return getFilteredByTime(meals, LocalTime.MIN, LocalTime.MAX, caloriesPerDay);
 }
 
     public static List<MealWithExceed> getFilteredByTime(Collection<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
@@ -58,11 +45,10 @@ public class MealsUtil {
                 .collect(
                         Collectors.groupingBy(Meal::getDate, Collectors.summingInt(Meal::getCalories))
                 );
-        List<MealWithExceed> result = meals.stream()
-                .filter(meal -> DateTimeUtil.isBetweenTime(meal.getTime(), startTime, endTime))
+        return meals.stream()
+                .filter(meal -> DateTimeUtil.isBetweenDateTime(meal.getTime(), startTime, endTime))
                 .map(meal -> createWithExceed(meal, caloriesSumByDate.get(meal.getDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
-        return result.isEmpty()? Collections.emptyList() : result;
     }
 
     public static MealWithExceed createWithExceed(Meal meal, boolean exceeded) {

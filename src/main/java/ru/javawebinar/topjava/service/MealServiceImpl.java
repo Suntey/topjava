@@ -18,6 +18,9 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal save(int userId, Meal meal) {
+        if (!meal.isNew()){
+            checkNotFoundWithId(repository.get(userId, meal.getId()), meal.getId());
+        }
         return repository.save(userId, meal);
     }
 
