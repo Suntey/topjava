@@ -82,6 +82,12 @@ public class MealServiceTest {
         service.update(updatedMeal, USER_ID);
         MEAL_MATCHER.assertEquals(updatedMeal, service.get(MEAL_ID, USER_ID));
     }
+    @Test(expected = NotFoundException.class)
+    public void updateNotFound() throws Exception {
+        Meal updatedMeal =  new Meal(LocalDateTime.now(), "UpdatedDescription", 1000);
+        updatedMeal.setId(123);
+        service.update(updatedMeal, USER_ID);
+    }
 
     @Test
     public void save() throws Exception {
