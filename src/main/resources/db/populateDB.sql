@@ -13,9 +13,7 @@ INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
   ('ROLE_ADMIN', 100001);
 
-INSERT INTO meals(calories, description, user_id) VALUES ('1200', 'Завтрак', 100000);
-INSERT INTO meals(calories, description, user_id) VALUES ('1500', 'Обед', 100000);
-INSERT INTO meals(calories, description, user_id) VALUES ('2000', 'Ужин', 100000);
-INSERT INTO meals(calories, description, user_id) VALUES ('500', 'Завтрак1', 100000);
-INSERT INTO meals(calories, description, user_id) VALUES ('1000', 'Обед1', 100000);
-INSERT INTO meals(calories, description, user_id) VALUES ('500', 'Ужин1', 100000);
+INSERT INTO meals (user_id, datetime, description, calories) VALUES
+  (100000, '2017-03-01 10:00', 'Завтрак', 500),
+  (100000, '2017-03-01 13:30', 'Обед', 1000),
+  (100000, '2017-03-01 20:00', 'Ужин', 500);
