@@ -1,6 +1,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/92afc91fba324b639dc3445670ef3c8f)](https://www.codacy.com/app/Suntey/topjava?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Suntey/topjava&amp;utm_campaign=Badge_Grade)
 [![Dependency Status](https://dependencyci.com/github/Suntey/topjava/badge)](https://dependencyci.com/github/Suntey/topjava)
-https://travis-ci.org/Suntey/topjava.svg?branch=master
+[![Build Status](https://travis-ci.org/Suntey/topjava.svg?branch=master)](https://travis-ci.org/Suntey/topjava)
 
 ava Enterprise Online Project 
 ===============================
