@@ -1,7 +1,10 @@
 package ru.javawebinar.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,14 +13,24 @@ import java.time.LocalTime;
  * GKislin
  * 11.01.2015.
  */
+@Entity
+@Table(name = "meals")
 public class Meal extends BaseEntity {
+
+    @Column(name = "date_time", columnDefinition = "timestamp default now()")
     private LocalDateTime dateTime;
 
+    @Column(name = "description")
+    @NotBlank
+    @Length(min = 3)
     private String description;
 
+    @Column(name = "calories")
+    @NotNull
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
     private User user;
 
     public Meal() {
