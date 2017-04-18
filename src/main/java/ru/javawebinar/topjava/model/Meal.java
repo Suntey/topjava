@@ -14,7 +14,7 @@ import java.time.LocalTime;
  * 11.01.2015.
  */
 @Entity
-@Table(name = "meals")
+@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = "user_id", name = "meals_unique_user_datetime_idx")})
 public class Meal extends BaseEntity {
 
     @Column(name = "date_time", columnDefinition = "timestamp default now()")
