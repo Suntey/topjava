@@ -26,8 +26,8 @@ public class ShowMethodTimeRule implements TestRule{
                 long before = System.nanoTime();
                 statement.evaluate();
                 long after = System.nanoTime();
-                LOG.info("Время выполнения {} нс \n", after-before);
-                testTime.add(String.format("%s - %d", description.getMethodName(), after - before));
+                LOG.info("Время выполнения {} мс \n", (after-before)/1000000);
+                testTime.add(String.format("%s - %d мс", description.getMethodName(), (after-before)/1000000));
             }
         };
     }
