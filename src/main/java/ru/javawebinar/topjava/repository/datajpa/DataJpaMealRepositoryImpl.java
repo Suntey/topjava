@@ -7,12 +7,11 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
 public class DataJpaMealRepositoryImpl implements MealRepository {
-    private static final Sort SORT_DATE = new Sort("dateTime");
+    private static final Sort SORT_DATE = new Sort(Sort.Direction.DESC,"dateTime");
 
     @Autowired
     private CrudMealRepository crudMealRepository;
@@ -42,9 +41,7 @@ public class DataJpaMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getAll(int userId) {
-        List<Meal> meals = crudMealRepository.findAllByUserId(SORT_DATE, userId);
-        Collections.reverse(meals);
-        return meals;
+        return crudMealRepository.findAllByUserId(SORT_DATE, userId);
     }
 
     @Override

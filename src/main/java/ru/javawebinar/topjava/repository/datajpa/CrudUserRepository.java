@@ -30,4 +30,7 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
 
     User getByEmail(String email);
 
+//    @Override
+//    @Transactional(propagation = Propagation.REQUIRED)
+//    User getOne(Integer integer);
 }
