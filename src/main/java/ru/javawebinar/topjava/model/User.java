@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -8,6 +9,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
@@ -45,8 +47,12 @@ public class User extends NamedEntity {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
     private Set<Role> roles;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OrderBy("dateTime DESC")
+    protected List<Meal> meals;
     @Column(name = "calories_per_day", columnDefinition = "int default 2000")
     @Range(min = 10, max = 10000)
     private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
